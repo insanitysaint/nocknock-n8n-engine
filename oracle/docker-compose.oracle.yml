@@ -1,0 +1,45 @@
+# Oracle Cloud add-on for the Nocknock n8n engine. Run it together with the main file:
+#
+#   docker compose -f docker-compose.yml -f oracle/docker-compose.oracle.yml up -d
+#
+# What it changes:
+#   - n8n listens only on the VM itself (127.0.0.1), so nothing reaches it except through Caddy.
+#   - Caddy adds HTTPS (a free Let's Encrypt certificate) and one login in front of the cockpit.
+#   - n8n gets the memory and clean-up settings the free 1 GB VM needs.
+#
+# Needs Docker Compose 2.24 or newer (the `!override` tag). The installer in oracle/setup-vm.sh gives you that.
+
+services:
+  n8n:
+    ports: !override
+      - "127.0.0.1:5678:5678"
+    environment:
+      - WEBHOOK_URL=https://${DOMAIN:?set DOMAIN in .env}/
+      - N8N_PROXY_HOPS=1
+      # The free 1 GB VM: keep n8n's memory inside what the machine can hold.
+      - NODE_OPTIONS=--max-old-space-size=500
+      # Keep n8n's database small by dropping old run history.
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=72
+      - EXECUTIONS_DATA_PRUNE_MAX_COUNT=500
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - n8n
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN:?set DOMAIN in .env}
+      - APP_USER=${APP_USER:-admin}
+      - APP_PASSWORD_HASH=${APP_PASSWORD_HASH:?set APP_PASSWORD_HASH in .env}
+    volumes:
+      - ./oracle/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

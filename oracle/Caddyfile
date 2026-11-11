@@ -1,0 +1,35 @@
+# Caddy gets a free Let's Encrypt certificate for {$DOMAIN} on its own.
+# Everything sits behind one login. The browser asks for the user name and password once per session.
+{$DOMAIN} {
+	encode zstd gzip
+
+	basic_auth {
+		{$APP_USER} {$APP_PASSWORD_HASH}
+	}
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		X-Frame-Options DENY
+		-Server
+	}
+
+	# The front page is the cockpit.
+	redir / /webhook/cockpit 302
+
+	# Only the cockpit and the intake form are reachable. The n8n editor and its REST API are never proxied;
+	# open the editor through an SSH tunnel instead (see the guide).
+	handle /webhook/* {
+		reverse_proxy n8n:5678 {
+			transport http {
+				response_header_timeout 120s
+			}
+		}
+	}
+	handle /form/* {
+		reverse_proxy n8n:5678
+	}
+	handle {
+		respond "Not found" 404
+	}
+}

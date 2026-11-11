@@ -88,6 +88,14 @@ Only when you are happy with the test email and your DNS is set up (SPF, DKIM an
 
 Read the compliance notes in [docs/PRODUCT.md](docs/PRODUCT.md#compliance-and-deliverability) first. This engine is for **B2B** outreach to business addresses, with a visible opt-out.
 
+## Run it on a free server (optional)
+
+Want it running day and night without leaving your laptop on? The `oracle/` folder adds HTTPS and a login and runs the same kit on a free Oracle Cloud VM. Step-by-step guide: <https://nocknock.vercel.app/guides/oracle-cloud>
+
+## Run it on a free server (optional)
+
+Want it running day and night without leaving your laptop on? The `oracle/` folder adds HTTPS and a login and runs the same kit on a free Oracle Cloud VM. Step-by-step guide: <https://nocknock.vercel.app/guides/oracle-cloud>
+
 ## 5. Where your data lives
 
 Everything you create is in plain files in the `n8n-files/` folder next to `docker-compose.yml` (the start-up script fills it on first run; its contents are never uploaded to GitHub):
