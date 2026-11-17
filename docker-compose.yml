@@ -5,7 +5,7 @@ name: outsorcerer-outreach-engine
 
 services:
   n8n:
-    image: docker.n8n.io/n8nio/n8n:2.35.7
+    image: docker.n8n.io/n8nio/n8n:2.42.5
     container_name: outreach-engine
     restart: unless-stopped
     init: true
