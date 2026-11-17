@@ -9,7 +9,7 @@ This folder turns the starter kit into an always-on server with HTTPS and a logi
 | `Caddyfile` | Sends `/` to the cockpit and proxies only the cockpit and the intake form. |
 | `oracle.env.example` | The extra settings: `COMPOSE_FILE`, `DOMAIN`, `APP_USER`, `APP_PASSWORD_HASH`. |
 
-Follow the step-by-step guide: https://nocknock.vercel.app/guides/oracle-cloud
+Follow the step-by-step guide: [installation_guide.md](../installation_guide.md) (Path B) or the [PDF guide](../docs/Nocknock-Setup-Guide.pdf).
 
 The short version, on the VM, from the folder that holds `docker-compose.yml`:
 

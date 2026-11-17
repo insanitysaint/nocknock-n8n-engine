@@ -90,11 +90,7 @@ Read the compliance notes in [docs/PRODUCT.md](docs/PRODUCT.md#compliance-and-de
 
 ## Run it on a free server (optional)
 
-Want it running day and night without leaving your laptop on? The `oracle/` folder adds HTTPS and a login and runs the same kit on a free Oracle Cloud VM. Step-by-step guide: <https://nocknock.vercel.app/guides/oracle-cloud>
-
-## Run it on a free server (optional)
-
-Want it running day and night without leaving your laptop on? The `oracle/` folder adds HTTPS and a login and runs the same kit on a free Oracle Cloud VM. Step-by-step guide: <https://nocknock.vercel.app/guides/oracle-cloud>
+Want it running day and night without leaving your laptop on? The `oracle/` folder adds HTTPS and a login and runs the same kit on a free Oracle Cloud VM. Step-by-step guide: [installation_guide.md](installation_guide.md) (Path B) or the [PDF guide](docs/Nocknock-Setup-Guide.pdf).
 
 ## 5. Where your data lives
 
